@@ -18,11 +18,11 @@ from typing import (
     Sequence,
     Tuple,
     Union,
+    Callable,
 )
 from urllib.parse import urljoin
 
 import httpx
-from httpx._types import AuthTypes, CertTypes, CookieTypes, HeaderTypes
 from langchain_core.callbacks import (
     AsyncCallbackManagerForChainRun,
     CallbackManagerForChainRun,
@@ -54,6 +54,9 @@ if TYPE_CHECKING:
     # For type checking httpx types
     import ssl
 
+# Redefine VerifyTypes instead of importing from httpx._types
+VerifyTypes = Union[bool, str, Callable[[str], bool]]
+from httpx._types import AuthTypes, CertTypes, CookieTypes, HeaderTypes
 
 def _is_json_serializable(obj: Any) -> bool:
     """Return True if the object is json serializable."""
